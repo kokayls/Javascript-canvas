@@ -2,14 +2,15 @@ const canvas = document.getElementById('game_canvas');
 const ctx = canvas.getContext('2d');
 
 
+
 //setup canvas size
 canvas.width = 800;
 canvas.height = 500;
 let canvasWidth = canvas.width;
 let canvasHeight = canvas.height;
 
-let x = 0;
-let y = 0;
+let cursorPosition = new CursorPosition(0,0);
+
 
 console.log(canvasWidth);
 console.log(canvasHeight);
@@ -22,10 +23,9 @@ function draw(){
     ctx.fillRect(0, 0, canvasWidth, canvasHeight);
     //draw rectangle
     ctx.fillStyle = 'rgba(50, 125, 200, 0.5)';
-    ctx.fillRect(x,y, 50, 50);
+    ctx.fillRect(cursorPosition.X, cursorPosition.Y, 50, 50);
 
-    //x++;
-       
+
 }
 
 canvas.addEventListener('click', event =>
@@ -36,8 +36,8 @@ canvas.addEventListener('click', event =>
     let mouseX = event.clientX - bound.left - canvas.clientLeft - paddingValue;
     let mouseY = event.clientY - bound.top - canvas.clientTop -paddingValue;
 
-    x = mouseX;
-    y = mouseY;
+    cursorPosition.X = mouseX;
+    cursorPosition.Y = mouseY;
     //context.fillRect(x, y, 16, 16);
 });
 
