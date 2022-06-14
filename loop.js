@@ -9,36 +9,31 @@ canvas.height = 500;
 let canvasWidth = canvas.width;
 let canvasHeight = canvas.height;
 
-let cursorPosition = new CursorPosition(0,0);
+let cursor = new Cursor(0,0);
 
+function drawCanvas(){
+    window.requestAnimationFrame(drawCanvas); 
+    drawBackground('#262626');
+    cursor.draw();
 
-console.log(canvasWidth);
-console.log(canvasHeight);
-
-
-function draw(){
-    window.requestAnimationFrame(draw); 
-    //draw background
-    ctx.fillStyle = '#262626';
-    ctx.fillRect(0, 0, canvasWidth, canvasHeight);
     //draw rectangle
-    ctx.fillStyle = 'rgba(50, 125, 200, 0.5)';
-    ctx.fillRect(cursorPosition.X, cursorPosition.Y, 50, 50);
+    //ctx.fillStyle = 'rgba(50, 125, 200, 0.5)';
+    //ctx.fillRect(cursor.position.X, cursor.position.Y, 50, 50);
 
 
 }
 
-canvas.addEventListener('click', event =>
+/* canvas.addEventListener('click', event =>
 {
-    let bound = canvas.getBoundingClientRect();
-    let paddingValue = Number(window.getComputedStyle(canvas).getPropertyValue('padding').slice(0, -2));
+    cursor.setPosition(canvas, event);
+    
+}); */
 
-    let mouseX = event.clientX - bound.left - canvas.clientLeft - paddingValue;
-    let mouseY = event.clientY - bound.top - canvas.clientTop -paddingValue;
-
-    cursorPosition.X = mouseX;
-    cursorPosition.Y = mouseY;
-    //context.fillRect(x, y, 16, 16);
+canvas.addEventListener('mousemove', event =>
+{
+    cursor.setPosition(canvas, event);
+    //cursor.draw();
+    
 });
 
 //console.log(paddingValue);

@@ -1,6 +1,6 @@
 
 
-draw();
+drawCanvas();
 
 //hello
 
