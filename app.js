@@ -1,5 +1,7 @@
 
-console.log(`The canvas is ${ctx.canvas.width}x${ctx.canvas.height}`);
+console.log(`The canvas is ${canvasWidth}x${canvasHeight}`);
 
 draw();
+
+//hello
 
