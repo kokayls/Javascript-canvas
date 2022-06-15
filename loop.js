@@ -11,16 +11,27 @@ let canvasHeight = canvas.height;
 
 let cursor = new Cursor(0,0);
 
+//test area
+let pointA = new Vector2(1,2);
+let pointB = new Vector2(7,25);
+
+console.log(pointA.toString());
+console.log(pointB.toString());
+
+let line = new Line(pointA, pointB);
+console.log(line.toString());
+
+//test area end
+
 function drawCanvas(){
     window.requestAnimationFrame(drawCanvas); 
     drawBackground('#262626');
-    cursor.draw();
+    cursor.render();
+    line.render();
 
-    //draw rectangle
-    //ctx.fillStyle = 'rgba(50, 125, 200, 0.5)';
-    //ctx.fillRect(cursor.position.X, cursor.position.Y, 50, 50);
+    //test area
 
-
+    //test area end
 }
 
 /* canvas.addEventListener('click', event =>
