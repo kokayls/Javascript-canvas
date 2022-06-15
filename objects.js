@@ -1,3 +1,4 @@
+const deafultStrokeStyle = "#ffffff";
 class Vector2{
     constructor(_x, _y){
         this.X = _x;
@@ -6,7 +7,7 @@ class Vector2{
 
     //setCursorPosition();
     toString(){
-        `The Vector coordinates are: ${this.X}, ${this.Y}`;
+        return`Point: [${this.X}, ${this.Y}]`;
     }
 }
 
@@ -16,7 +17,7 @@ class Cursor{
         this.color = "rgba(50, 125, 200, 0.5)";
     }
 
-    draw(){
+    render(){
         // cross top
         ctx.beginPath();
         ctx.moveTo(this.position.X, this.position.Y - 3);
@@ -52,6 +53,84 @@ class Cursor{
     this.position.X = mouseX;
     this.position.Y = mouseY;
     
+    }
+}
+
+class Line{
+    
+    constructor(_pointA, _pointB){
+        this.pointA = _pointA;
+        this.pointB = _pointB;
+        this.color = deafultStrokeStyle;
+        //this.length = twoPointDistance(_pointA, _pointB);
+        
+    }
+
+    setColor(_color){
+        this.color = _color;
+    }
+    render(){
+        drawLine(this.pointA, this.pointB, this.color);
+        
+    }
+    toString(){
+        return`Line: [${this.pointA.toString()}, ${pointB.toString()}]`;
+    }
+     static twoPointDistance(_pointA, _pointB){
+        
+     }
+
+}
+
+function drawLine(_pointA, _pointB, _color){
+    //called with no color arguments
+    if(typeof _color == "undefined") {
+        drawTheLine();
+    }
+    ////called with color arguments
+    else{
+        ctx.strokeStyle = _color;
+        drawTheLine();
+        ctx.strokeStyle = deafultStrokeStyle;
+        //console.log(`with color:${_color}`);
+    }
+    function drawTheLine(){
+        ctx.beginPath();       // Start a new path
+        ctx.moveTo(_pointA.X, _pointA.Y);    // Move the pen to ponint A
+        ctx.lineTo(_pointB.X, _pointB.Y);  // Draw a line to point B
+        ctx.stroke(); 
+    }
+}
+
+class Rectangle{
+    constructor(_pointA, _pointB){
+        this.lines;
+        this.points;
+        this.area; //in mm^2
+        this.perimeter;
+
+        setArea();
+        setPerimeter();
+    }
+
+    render(){
+        //render object to canvas
+    }
+
+    setArea(){
+
+    }
+
+    setPerimeter(){
+
+    }
+    
+    toString(){
+        return `Rectangle`;
+    }
+
+    static hello(){
+        console.log("hello from rectangle");
     }
 }
 

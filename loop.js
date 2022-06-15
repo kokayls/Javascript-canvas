@@ -1,8 +1,6 @@
 const canvas = document.getElementById('game_canvas');
 const ctx = canvas.getContext('2d');
 
-
-
 //setup canvas size
 canvas.width = 800;
 canvas.height = 500;
@@ -11,16 +9,24 @@ let canvasHeight = canvas.height;
 
 let cursor = new Cursor(0,0);
 
+//test area
+let pointA = new Vector2(65,212);
+let pointB = new Vector2(762,413);
+
+
+let line = new Line(pointA, pointB);
+line.setColor('lime');
+
+//test area end
+
 function drawCanvas(){
     window.requestAnimationFrame(drawCanvas); 
     drawBackground('#262626');
-    cursor.draw();
-
-    //draw rectangle
-    //ctx.fillStyle = 'rgba(50, 125, 200, 0.5)';
-    //ctx.fillRect(cursor.position.X, cursor.position.Y, 50, 50);
-
-
+    cursor.render();
+    
+    //test area
+    line.render();
+    //test area end
 }
 
 /* canvas.addEventListener('click', event =>
