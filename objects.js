@@ -62,12 +62,14 @@ class Line{
         this.pointA = _pointA;
         this.pointB = _pointB;
         this.color = deafultStrokeStyle;
-        //this.length = twoPointDistance(_pointA, _pointB);
-        
+        this.length = Line.twoPointDistance(this._pointA, this._pointB);    
     }
 
     setColor(_color){
         this.color = _color;
+    }
+    setLength(){
+        this.length = Line.twoPointDistance(this.pointA, this.pointB);
     }
     render(){
         drawLine(this.pointA, this.pointB, this.color);
@@ -76,8 +78,8 @@ class Line{
     toString(){
         return`Line: [${this.pointA.toString()}, ${pointB.toString()}]`;
     }
-     static twoPointDistance(_pointA, _pointB){
-        
+    static twoPointDistance(_pointA, _pointB){
+        return Math.sqrt((Math.pow(pointB.X - pointA.X, 2) + (Math.pow(pointB.Y - pointA.Y, 2))));
      }
 
 }
@@ -104,13 +106,38 @@ function drawLine(_pointA, _pointB, _color){
 
 class Rectangle{
     constructor(_pointA, _pointB){
-        this.lines;
+
+        //array of line objects
+        
+        //  2---B
+        //  |   |
+        //  |   |
+        //  A---4
+
+        this.points = [
+            _pointA, 
+            new Vector2(_pointA.X, _pointB.Y), 
+            _pointB, 
+            new Vector2(_pointB.X, _pointA.Y)
+        ];
+
+        //  B---C
+        //  |   |
+        //  |   |
+        //  A---D
+        this.lines = [
+
+        ];
+
+        this.lengthX;
+        this.lengthY;
         this.points;
         this.area; //in mm^2
         this.perimeter;
+        this.color
 
-        setArea();
-        setPerimeter();
+        //setArea();
+        //setPerimeter();
     }
 
     render(){
