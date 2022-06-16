@@ -10,10 +10,19 @@ let canvasHeight = canvas.height;
 let cursor = new Cursor(0,0);
 
 //test area
-let pointA = new Vector2(65,212);
-let pointB = new Vector2(762,413);
+let pointA = new Vector2(65,215);
+let pointB = new Vector2(70,425);
+//let pointC = new Vector2(123, 675);
+//let pointD = new Vector2(23,215);
 
+;
+
+//console.log(line1.length)
+//console.log(line2.length)
+//console.log(line3.length) 
+//console.log(line4.length)
 let rectangle = new Rectangle(pointA, pointB);
+console.log(rectangle.toString());
 
 //test area end
 
@@ -23,7 +32,7 @@ function drawCanvas(){
     cursor.render();
     
     //test area
-    
+    //rectangle.render();
     //test area end
 }
 
