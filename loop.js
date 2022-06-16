@@ -13,9 +13,7 @@ let cursor = new Cursor(0,0);
 let pointA = new Vector2(65,212);
 let pointB = new Vector2(762,413);
 
-
-let line = new Line(pointA, pointB);
-line.setColor('lime');
+let rectangle = new Rectangle(pointA, pointB);
 
 //test area end
 
@@ -25,7 +23,7 @@ function drawCanvas(){
     cursor.render();
     
     //test area
-    line.render();
+    
     //test area end
 }
 
