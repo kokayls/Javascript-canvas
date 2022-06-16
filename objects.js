@@ -62,7 +62,8 @@ class Line{
         this.pointA = _pointA;
         this.pointB = _pointB;
         this.color = deafultStrokeStyle;
-        this.length = Line.twoPointDistance(this._pointA, this._pointB);    
+        this.length = Line.twoPointDistance(this.pointA, this.pointB);  
+        //console.log(`line created with lenght ${this.length}`) ;
     }
 
     setColor(_color){
@@ -76,11 +77,11 @@ class Line{
         
     }
     toString(){
-        return`Line: [${this.pointA.toString()}, ${pointB.toString()}]`;
+        return`Line: [${this.pointA.toString()}, ${this.pointB.toString()}, Length = ${this.length}]`;
     }
     static twoPointDistance(_pointA, _pointB){
-        return Math.sqrt((Math.pow(pointB.X - pointA.X, 2) + (Math.pow(pointB.Y - pointA.Y, 2))));
-     }
+        return Math.sqrt((Math.pow((_pointB.X - _pointA.X), 2) + (Math.pow((_pointB.Y - _pointA.Y), 2))));
+    }
 
 }
 
@@ -121,18 +122,21 @@ class Rectangle{
             new Vector2(_pointB.X, _pointA.Y)
         ];
 
-        //  B---C
+        //  1---2
         //  |   |
         //  |   |
-        //  A---D
+        //  0---3
         this.lines = [
-
+            new Line(this.points[0],this.points[1]),
+            new Line(this.points[1],this.points[2]),
+            new Line(this.points[2],this.points[3]),
+            new Line(this.points[3],this.points[0])
         ];
 
-        this.lengthX;
-        this.lengthY;
-        this.points;
+        this.lengthX = this.lines[0].length;
+        this.lengthY = this.lines[1].length;
         this.area; //in mm^2
+       
         this.perimeter;
         this.color
 
@@ -141,7 +145,9 @@ class Rectangle{
     }
 
     render(){
-        //render object to canvas
+        for (const line of this.lines) {
+            line.render();
+        }
     }
 
     setArea(){
