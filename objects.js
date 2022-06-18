@@ -1,4 +1,5 @@
 const deafultStrokeStyle = "#ffffff";
+
 class Vector2{
     constructor(_x, _y){
         this.X = _x;
@@ -13,34 +14,19 @@ class Vector2{
 
 class Cursor{
     constructor(_x, _y){
-        this.position = new Vector2(_x, _y);
-        this.color = "rgba(50, 125, 200, 0.5)";
+        //this.position = new Vector2(_x, _y);
+        this.X= _x;
+        this.Y = _y;
+        this.color = "rgba(254, 254, 217, 0.8)";
+        this.visible = true;
+        
     }
 
     render(){
-        // cross top
-        ctx.beginPath();
-        ctx.moveTo(this.position.X, this.position.Y - 3);
-        ctx.lineTo(this.position.X, this.position.Y - 13);
-        ctx.stroke();
-
-        // cross bottom
-        ctx.beginPath();
-        ctx.moveTo(this.position.X, this.position.Y + 3);
-        ctx.lineTo(this.position.X, this.position.Y + 13);
-        ctx.stroke();
-
-        // cross right
-        ctx.beginPath();
-        ctx.moveTo(this.position.X + 3, this.position.Y);
-        ctx.lineTo(this.position.X +13, this.position.Y);
-        ctx.stroke();
-
-        // cross left
-        ctx.beginPath();
-        ctx.moveTo(this.position.X - 3, this.position.Y);
-        ctx.lineTo(this.position.X - 13, this.position.Y);
-        ctx.stroke();
+        if(this.visible){
+            this.#drawCursor();
+        }
+        
     }
     setPosition(_canvas, _event){
     
@@ -50,12 +36,60 @@ class Cursor{
     let mouseX = _event.clientX - bound.left - _canvas.clientLeft - paddingValue;
     let mouseY = _event.clientY - bound.top - _canvas.clientTop -paddingValue;
 
-    this.position.X = mouseX;
-    this.position.Y = mouseY;
+    this.X = mouseX;
+    this.Y = mouseY;
     
+    //console.log(`position is set to x:${this.X}, y:${this.Y}`);
+    }
+
+    // getPosition(){
+    //     return this.position;
+    // }
+
+    toString(){
+        return `Cursor position: Y:${this.position.X},Y:${this.position.Y}`;
+    }
+    #drawCursor() {
+
+        ctx.strokeStyle = this.color;
+        // cross top
+        ctx.beginPath();
+        ctx.moveTo(this.X, this.Y - 3);
+        ctx.lineTo(this.X, this.Y - 13);
+        ctx.stroke();
+
+        // cross bottom
+        ctx.beginPath();
+        ctx.moveTo(this.X, this.Y + 3);
+        ctx.lineTo(this.X, this.Y + 13);
+        ctx.stroke();
+
+        // cross right
+        ctx.beginPath();
+        ctx.moveTo(this.X + 3, this.Y);
+        ctx.lineTo(this.X +13, this.Y);
+        ctx.stroke();
+
+        // cross left
+        ctx.beginPath();
+        ctx.moveTo(this.X - 3, this.Y);
+        ctx.lineTo(this.X - 13, this.Y);
+        ctx.stroke();
+
+        ctx.strokeStyle = deafultStrokeStyle;
     }
 }
-
+class Vector2Register{
+    constructor(){
+        this.vectors = []
+    }
+    empty(){
+        this.vectors = [];
+    }
+    toString(){
+        return "Cursorregister";
+    }
+}
 class Line{
     
     constructor(_pointA, _pointB, _color){
@@ -84,24 +118,16 @@ class Line{
     }
 
 }
-
-function drawLine(_pointA, _pointB, _color){
-    //called with no color arguments
-    if(typeof _color == "undefined") {
-        drawTheLine();
+class PolyLine{
+    constructor(_color){
+        this.lines = [];
+        this.open = true;
     }
-    ////called with color arguments
-    else{
-        ctx.strokeStyle = _color;
-        drawTheLine();
-        ctx.strokeStyle = deafultStrokeStyle;
-        //console.log(`with color:${_color}`);
+    addLine(_line){
+        this.lines.push(_line);
     }
-    function drawTheLine(){
-        ctx.beginPath();       // Start a new path
-        ctx.moveTo(_pointA.X, _pointA.Y);    // Move the pen to ponint A
-        ctx.lineTo(_pointB.X, _pointB.Y);  // Draw a line to point B
-        ctx.stroke(); 
+    toString(){
+        return "Polyline"
     }
 }
 
@@ -176,5 +202,37 @@ class Rectangle{
     }
 
 
+}
+
+class DrawingManager{
+    constructor(){
+        this.isDrawing = false;
+        this.toDraw;
+        this.drawingObjects = [];
+        this.registeredVectors = [];
+    }
+    
+    addObject(_object){
+        this.drawingObjects.pust(_object);
+    }
+}
+function drawLine(_pointA, _pointB, _color){
+    //called with no color arguments
+    if(typeof _color == "undefined") {
+        drawTheLine();
+    }
+    ////called with color arguments
+    else{
+        ctx.strokeStyle = _color;
+        drawTheLine();
+        ctx.strokeStyle = deafultStrokeStyle;
+        //console.log(`with color:${_color}`);
+    }
+    function drawTheLine(){
+        ctx.beginPath();       // Start a new path
+        ctx.moveTo(_pointA.X, _pointA.Y);    // Move the pen to ponint A
+        ctx.lineTo(_pointB.X, _pointB.Y);  // Draw a line to point B
+        ctx.stroke(); 
+    }
 }
 

@@ -8,19 +8,13 @@ let canvasWidth = canvas.width;
 let canvasHeight = canvas.height;
 
 let cursor = new Cursor(0,0);
+let draft = new DrawingManager();
+
 
 //test area
-let pointA = new Vector2(65,215);
-let pointB = new Vector2(70,425);
-
-let line = new Line(new Vector2(234,215), new Vector2(650,685), "green");
-
-
-let rectangle = new Rectangle(pointA, pointB, "magenta");
-console.log(rectangle.toString());
-console.log(rectangle.area);
-//rectangle.setColor("red");
-
+    //let coordinates = new Vector2Register();
+draft.registeredVectors
+    //console.log(coordinates.vectors.length);
 //test area end
 
 function drawCanvas(){
@@ -30,8 +24,6 @@ function drawCanvas(){
     
     //test area
     //rectangle.setColor("lime");
-    rectangle.render();
-    line.render();
     //test area end
 }
 
@@ -44,21 +36,31 @@ function drawCanvas(){
 canvas.addEventListener('mousemove', event =>
 {
     cursor.setPosition(canvas, event);
-    //cursor.draw();
-    
+    cursor.render();
 });
 
-window.addEventListener('mousemove', event =>
+canvas.addEventListener('click', event =>
 {
-    cursor.setPosition(canvas, event);
-    //cursor.draw();
+   
+    //console.log(cursor);
+    draft.registeredVectors.push(new Vector2(cursor.X, cursor.Y));
+    //console.log("mouse clicked");
     
 });
 
 document.addEventListener('keypress', logKey);
 
 function logKey(e){
-    console.log(e);
+    if(e.key == "l"){
+        //draft.isDrawing= true;
+        console.log("Line shortkey is pressed");
+        //let line = new Line();
+        // if(coordinates.vectors !== 'undefined'){
+        //     coordinates.vectors.push(new Vector2(cursor.position.X, cursor.position.Y));
+        //     console.log("coordinate pushed to register");
+        // }
+    }
+    //console.log(e.key);
 }
 
 //console.log(paddingValue);
