@@ -12,17 +12,14 @@ let cursor = new Cursor(0,0);
 //test area
 let pointA = new Vector2(65,215);
 let pointB = new Vector2(70,425);
-//let pointC = new Vector2(123, 675);
-//let pointD = new Vector2(23,215);
 
-;
+let line = new Line(new Vector2(234,215), new Vector2(650,685), "green");
 
-//console.log(line1.length)
-//console.log(line2.length)
-//console.log(line3.length) 
-//console.log(line4.length)
-let rectangle = new Rectangle(pointA, pointB);
+
+let rectangle = new Rectangle(pointA, pointB, "magenta");
 console.log(rectangle.toString());
+console.log(rectangle.area);
+//rectangle.setColor("red");
 
 //test area end
 
@@ -32,7 +29,9 @@ function drawCanvas(){
     cursor.render();
     
     //test area
-    //rectangle.render();
+    //rectangle.setColor("lime");
+    rectangle.render();
+    line.render();
     //test area end
 }
 
@@ -48,6 +47,19 @@ canvas.addEventListener('mousemove', event =>
     //cursor.draw();
     
 });
+
+window.addEventListener('mousemove', event =>
+{
+    cursor.setPosition(canvas, event);
+    //cursor.draw();
+    
+});
+
+document.addEventListener('keypress', logKey);
+
+function logKey(e){
+    console.log(e);
+}
 
 //console.log(paddingValue);
 //console.log(typeof(paddingValue));

@@ -58,10 +58,10 @@ class Cursor{
 
 class Line{
     
-    constructor(_pointA, _pointB){
+    constructor(_pointA, _pointB, _color){
         this.pointA = _pointA;
         this.pointB = _pointB;
-        this.color = deafultStrokeStyle;
+        this.color = _color;;
         this.length = Line.twoPointDistance(this.pointA, this.pointB);  
         //console.log(`line created with lenght ${this.length}`) ;
     }
@@ -106,8 +106,9 @@ function drawLine(_pointA, _pointB, _color){
 }
 
 class Rectangle{
-    constructor(_pointA, _pointB){
+    constructor(_pointA, _pointB, _color){
 
+        this.color = _color;
         //array of line objects
         
         //  2---B
@@ -127,21 +128,19 @@ class Rectangle{
         //  |   |
         //  0---3
         this.lines = [
-            new Line(this.points[0],this.points[1]),
-            new Line(this.points[1],this.points[2]),
-            new Line(this.points[2],this.points[3]),
-            new Line(this.points[3],this.points[0])
+            new Line(this.points[0],this.points[1], this.color),
+            new Line(this.points[1],this.points[2], this.color),
+            new Line(this.points[2],this.points[3], this.color),
+            new Line(this.points[3],this.points[0], this.color)
         ];
 
-        this.lengthX = this.lines[0].length;
-        this.lengthY = this.lines[1].length;
-        this.area; //in mm^2
+    
+        this.area = Rectangle.CalculateArea(this.lines[0], this.lines[1]); //in mm^2
        
-        this.perimeter;
-        this.color
+        this.perimeter = Rectangle.CalculatePerimeter(this);
+    
 
-        //setArea();
-        //setPerimeter();
+    
     }
 
     render(){
@@ -150,20 +149,32 @@ class Rectangle{
         }
     }
 
-    setArea(){
-
+    static CalculateArea(_line1, _line2){
+        return _line1.length * _line2.length;
     }
 
-    setPerimeter(){
-
+    static CalculatePerimeter(_rectangle){
+        let perimeter = 0;
+        for (const line of _rectangle.lines) {
+            perimeter += line.length;
+        }
+        return perimeter;
     }
     
-    toString(){
-        return `Rectangle`;
+    setColor(_color){
+        this.color = _color;
+
+        //set the lines color to match the recatnge's color
+        for (const line of this.lines) {
+            line.color = this.color;
+        }
+        //console.log(`color set to ${_color}. The objects color is ${this.color}`);
     }
 
-    static hello(){
-        console.log("hello from rectangle");
+    toString(){
+        return "Rectangle"
     }
+
+
 }
 
