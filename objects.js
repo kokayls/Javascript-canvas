@@ -96,7 +96,8 @@ class Line{
         this.pointA = _pointA;
         this.pointB = _pointB;
         this.color = _color;;
-        this.length = Line.twoPointDistance(this.pointA, this.pointB);  
+        this.length = Line.twoPointDistance(this.pointA, this.pointB);
+        this.isClosed = true;  
         //console.log(`line created with lenght ${this.length}`) ;
     }
 
@@ -119,6 +120,7 @@ class Line{
 
 }
 class PolyLine{
+    
     constructor(_color){
         this.lines = [];
         this.open = true;
@@ -210,8 +212,32 @@ class DrawingManager{
         this.toDraw;
         this.drawingObjects = [];
         this.registeredVectors = [];
+        this.cursor = new Cursor(0,0);
     }
-    
+    setToUpdate(key){
+        //this.registeredVectors = []; //clear the registered Vectors array
+                                    //should clear the array when createing a new object
+        this.isDrawing = true;      //set to drawing mode
+        this.toDraw = key;  //passed value is a string
+    }
+    update(){
+        
+        // if(this.isDrawing){
+        //     //add object to the drawingManager
+        //     switch (key) {
+        //         case "l":
+        //             //start a line
+        //             let line = new Line();
+        //             this.drawingObjects.push(line);
+        //             break;
+            
+        //         default:
+        //             break;
+        //     }
+        //     //render the objects in the drawingManager
+        // }
+        this.cursor.render();
+    }
     addObject(_object){
         this.drawingObjects.pust(_object);
     }
@@ -234,5 +260,10 @@ function drawLine(_pointA, _pointB, _color){
         ctx.lineTo(_pointB.X, _pointB.Y);  // Draw a line to point B
         ctx.stroke(); 
     }
+}
+
+function drawBackground(background){
+    ctx.fillStyle = background;
+    ctx.fillRect(0, 0, canvasWidth, canvasHeight);
 }
 
